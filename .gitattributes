@@ -1,0 +1,6 @@
+# Ensure LF line endings for all text files (critical for deployment platforms)
+* text=auto eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.json text eol=lf
