@@ -32,7 +32,7 @@ export const students = [
     },
     {
         id: "5",
-        name: "DIVYA S",
+        name: "JAGANNATHAN",
         dob: "2000-05-05",
         password: "pass",
         messages: []
