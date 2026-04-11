@@ -30,16 +30,37 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function initApp() {
+    document.body.classList.add('no-scroll'); // Hide scrollbar during intro
     renderStudentList();
-    
-    // Splash screen timeout
-    setTimeout(() => {
+
+    const video = document.getElementById('intro-video');
+
+    // Function to transition to main app
+    const startApp = () => {
         splashScreen.classList.add('hidden');
         mainApp.classList.remove('hidden');
-    }, 2000);
+        document.body.classList.remove('no-scroll'); // Re-enable scrollbar for content
+    };
+
+    if (video) {
+        // Explicitly try to play 
+        video.play().catch(e => {
+            console.log("Autoplay was prevented, waiting for interaction or timeout");
+        });
+
+        // When video ends, start app
+        video.onended = startApp;
+
+        // Fallback: If video doesn't load/play in 5 seconds, start anyway
+        setTimeout(startApp, 5000);
+    } else {
+        startApp();
+    }
 
     setupEventListeners();
 }
+
+
 
 // --- Renderers ---
 
@@ -95,13 +116,11 @@ function selectStudent(student) {
     // Switch to book view
     switchSection('book-container');
     
-    // Trigger book animation after a short delay
+    // Trigger book visibility and options instantly
     setTimeout(() => {
         book.classList.add('open');
-        setTimeout(() => {
-            optionsOverlay.classList.remove('hidden');
-        }, 1000);
-    }, 500);
+        optionsOverlay.classList.remove('hidden');
+    }, 100);
 }
 
 function switchSection(targetId) {

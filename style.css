@@ -1,8 +1,8 @@
 :root {
-    --gold: #D4AF37;
-    --gold-bright: #FFD700;
-    --gold-dark: #996515;
-    --bg-black: #050505;
+    --pink: #ff007f;
+    --pink-bright: #ff66b2;
+    --pink-dark: #8b004b;
+    --bg-black: #000; /* Pure black to prevent any light leaks or white lines */
     --card-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     --text-primary: #f0f0f0;
@@ -24,6 +24,42 @@ body {
     color: var(--text-primary);
     overflow-x: hidden;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Global Scrollbar Removal (App feel) */
+html {
+    background-color: #000;
+}
+
+html, body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none; /* Prevents pull-to-refresh white gaps */
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Hide scrollbar on specific scrollable areas if needed */
+.grid-list, .pages-wrapper, .card {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.grid-list::-webkit-scrollbar, .pages-wrapper::-webkit-scrollbar, .card::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar on splash screen and other pages */
+body.no-scroll {
+    overflow: hidden;
 }
 
 h1, h2, h3 {
@@ -56,24 +92,45 @@ h1, h2, h3 {
 }
 
 @keyframes glow {
-    0% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
-    50% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
-    100% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+    0% { text-shadow: 0 0 10px rgba(255, 0, 127, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(255, 0, 127, 0.6); }
+    100% { text-shadow: 0 0 10px rgba(255, 0, 127, 0.3); }
 }
 
 /* Splash Screen */
 .overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-black);
+    top: -2px; /* Slight bleed to cover top edge artifacts */
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background: #000;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    overflow: hidden;
 }
+
+#intro-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50.5%) scale(1.5); /* Slight upward shift */
+    max-width: 100%;
+    max-height: 100%;
+    outline: none !important;
+    border: none !important;
+    display: block;
+    background: #000;
+    clip-path: inset(2px); /* Aggressive clip on all sides */
+}
+
+/* Force hide any scrollbars or controls that might appear as lines */
+#intro-video::-webkit-media-controls {
+    display: none !important;
+}
+
 
 .splash-content {
     text-align: center;
@@ -81,7 +138,7 @@ h1, h2, h3 {
 
 .glow-text {
     font-size: 3.5rem;
-    color: var(--gold);
+    color: var(--pink);
     letter-spacing: 5px;
     animation: glow 2s infinite ease-in-out;
     margin-bottom: 0.5rem;
@@ -98,7 +155,7 @@ h1, h2, h3 {
     width: 40px;
     height: 40px;
     border: 3px solid var(--glass-border);
-    border-top: 3px solid var(--gold);
+    border-top: 3px solid var(--pink);
     border-radius: 50%;
     margin: 0 auto;
     animation: spin 1s linear infinite;
@@ -118,8 +175,8 @@ header {
     margin-bottom: 3rem;
 }
 
-.gold-text {
-    color: var(--gold);
+.pink-text {
+    color: var(--pink);
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
 }
@@ -150,8 +207,8 @@ header {
 }
 
 .student-btn:hover, .student-btn:active {
-    background: linear-gradient(45deg, var(--gold-dark), var(--gold));
-    color: black;
+    background: linear-gradient(45deg, var(--pink-dark), var(--pink));
+    color: white;
     transform: translateX(10px);
     border-color: transparent;
 }
@@ -164,7 +221,6 @@ header {
 
 /* Book Container */
 .book-wrapper {
-    perspective: 1500px;
     height: 60vh;
     display: flex;
     justify-content: center;
@@ -176,31 +232,29 @@ header {
     width: 280px;
     height: 380px;
     position: relative;
-    transform-style: preserve-3d;
-    transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.5s ease-in-out;
 }
 
 .book.open {
-    transform: rotateY(-180deg) translateX(50%);
+    transform: scale(0.9);
+    filter: brightness(0.7); /* Subtle darkening when open instead of disappearing */
 }
 
 .book-cover {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #1a1a1a, #000);
-    border: 3px solid var(--gold);
+    border: 3px solid var(--pink);
     border-radius: 5px 15px 15px 5px;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 2;
-    transform-origin: left;
-    transition: transform 1.5s;
-    backface-visibility: hidden;
+    transition: all 0.5s;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 10px 0 20px rgba(0,0,0,0.5);
+    box-shadow: 10px 0 20px rgba(255, 0, 127, 0.3);
 }
 
 .cover-content {
@@ -209,7 +263,7 @@ header {
 }
 
 .cover-content h3 {
-    color: var(--gold);
+    color: var(--pink);
     font-size: 1.8rem;
     margin-bottom: 1rem;
 }
@@ -240,9 +294,9 @@ header {
     margin-top: 1.5rem;
 }
 
-.gold-btn {
-    background: linear-gradient(45deg, var(--gold), var(--gold-bright));
-    color: #000;
+.pink-btn {
+    background: linear-gradient(45deg, var(--pink), var(--pink-bright));
+    color: white;
     border: none;
     padding: 1rem 2rem;
     border-radius: 12px;
@@ -250,20 +304,20 @@ header {
     font-size: 1.1rem;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
 }
 
-.gold-btn:active {
+.pink-btn:active {
     transform: scale(0.95);
 }
 
-.gold-btn.secondary {
+.pink-btn.secondary {
     background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
+    border: 1px solid var(--pink);
+    color: var(--pink);
 }
 
-.gold-btn.full {
+.pink-btn.full {
     width: 100%;
 }
 
@@ -298,7 +352,7 @@ textarea, input[type="date"], input[type="password"] {
 
 textarea:focus, input:focus {
     outline: none;
-    border-color: var(--gold);
+    border-color: var(--pink);
 }
 
 .file-label {
@@ -313,8 +367,8 @@ textarea:focus, input:focus {
 }
 
 .file-label:hover {
-    border-color: var(--gold);
-    background: rgba(212, 175, 55, 0.05);
+    border-color: var(--pink);
+    background: rgba(255, 0, 127, 0.05);
 }
 
 #image-upload {
@@ -357,12 +411,11 @@ textarea:focus, input:focus {
     height: 100%;
     padding: 2.5rem;
     background: linear-gradient(145deg, #161616, #000);
-    border: 1px solid var(--gold-dark);
+    border: 1px solid var(--pink-dark);
     border-radius: 15px;
     opacity: 0;
-    transform: rotateY(90deg) scale(0.8);
-    transform-origin: left;
-    transition: all 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform: scale(0.95); /* Removed rotateY for a cleaner feel */
+    transition: opacity 0.4s ease, transform 0.4s ease;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -370,15 +423,18 @@ textarea:focus, input:focus {
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     backface-visibility: hidden;
+    pointer-events: none;
 }
 
 .message-page.active {
     opacity: 1;
-    transform: rotateY(0deg) scale(1);
+    transform: scale(1);
+    pointer-events: all;
 }
 
 .message-page.prev {
-    transform: rotateY(-90deg) scale(0.8);
+    opacity: 0;
+    transform: scale(1.05); /* Fade out and slightly grow */
 }
 
 .page-content {
@@ -394,7 +450,7 @@ textarea:focus, input:focus {
     object-fit: cover;
     border-radius: 10px;
     margin-top: 1.5rem;
-    border: 1px solid var(--gold);
+    border: 1px solid var(--pink);
 }
 
 .carousel-controls {
@@ -406,8 +462,8 @@ textarea:focus, input:focus {
 }
 
 .nav-btn {
-    background: var(--gold);
-    color: black;
+    background: var(--pink);
+    color: white;
     border: none;
     width: 45px;
     height: 45px;
@@ -428,7 +484,7 @@ textarea:focus, input:focus {
 .back-btn {
     background: transparent;
     border: none;
-    color: var(--gold);
+    color: var(--pink);
     font-size: 1.1rem;
     cursor: pointer;
     margin-bottom: 2rem;
@@ -441,7 +497,7 @@ textarea:focus, input:focus {
         font-size: 2.5rem;
     }
     
-    .gold-text {
+    .purple-text {
         font-size: 2rem;
     }
     

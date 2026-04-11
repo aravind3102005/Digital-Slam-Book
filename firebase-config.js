@@ -1,7 +1,7 @@
 // Firebase Configuration
 // Replace with your actual Firebase project config
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
+    apiKey: "_API_KEY",
     authDomain: "YOUR_AUTH_DOMAIN",
     projectId: "YOUR_PROJECT_ID",
     storageBucket: "YOUR_STORAGE_BUCKET",
