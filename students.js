@@ -4,10 +4,7 @@ export const students = [
         name: "B BHUVANESAN",
         dob: "2000-01-01", // Placeholder
         password: "pass",     // Placeholder
-        messages: [
-            { text: "Best of luck for your future, Bhuvanesan!", image: null },
-            { text: "Had a great time with you in college!", image: "https://picsum.photos/400/300?random=1" }
-        ]
+        messages: []
     },
     {
         id: "2",

@@ -415,6 +415,30 @@ textarea:focus, input:focus {
 }
 
 /* Viewer Screen */
+.viewer-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.viewer-profile-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--pink);
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+}
+
+.viewer-profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .carousel-container {
     position: relative;
     height: 70vh;
@@ -435,10 +459,11 @@ textarea:focus, input:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 2.5rem;
-    background: linear-gradient(145deg, #161616, #000);
-    border: 1px solid var(--pink-dark);
-    border-radius: 15px;
+    padding: 4.5rem 2.5rem 3.5rem 2.5rem; /* Adjusted for comic bubble and quotation marks */
+    background: url('page.png') no-repeat center center;
+    background-size: 100% 100%;
+    border: none;
+    border-radius: 0; /* Let the image define the shape */
     opacity: 0;
     transition: opacity 0.4s ease; /* Only opacity for no-movement feel */
     display: flex;
@@ -461,19 +486,24 @@ textarea:focus, input:focus {
 }
 
 .page-content {
-    font-size: 1.2rem;
-    line-height: 1.6;
+    font-size: 1.3rem;
+    line-height: 1.4;
     font-style: italic;
-    color: var(--text-primary);
+    color: #000;
+    font-weight: 700;
+    margin: 0 1.5rem;
+    padding: 1rem;
+    text-shadow: 0.5px 0.5px 0px rgba(255,255,255,0.8); /* Slight lift */
 }
 
 .page-image {
-    width: 100%;
-    max-height: 300px;
+    width: 85%;
+    max-height: 220px;
     object-fit: cover;
-    border-radius: 10px;
-    margin-top: 1.5rem;
-    border: 1px solid var(--pink);
+    border-radius: 12px;
+    margin-top: 1rem;
+    border: 3px solid #fff; /* White border to separate from comic style */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .carousel-controls {

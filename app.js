@@ -93,7 +93,7 @@ function renderSlamBookPages() {
         const page = document.createElement('div');
         page.className = `message-page ${index === 0 ? 'active' : ''}`;
         
-        let content = `<div class="page-content">"${msg.text}"</div>`;
+        let content = `<div class="page-content">${msg.text}</div>`;
         if (msg.image) {
             content += `<img src="${msg.image}" class="page-image" alt="Memory">`;
         }
