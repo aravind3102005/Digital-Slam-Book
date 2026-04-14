@@ -468,20 +468,6 @@ textarea:focus, input:focus {
     gap: 1rem;
 }
 
-.viewer-profile-container {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid var(--pink);
-    box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
-}
-
-.viewer-profile-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 
 /* Progress Bar */
 .progress-container {
@@ -535,21 +521,28 @@ textarea:focus, input:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 4.5rem 2.5rem 3.5rem 2.5rem; /* Adjusted for comic bubble and quotation marks */
+    padding: 6rem 3rem 3rem 3rem; /* Static top padding for no movement */
     background: url('page.png') no-repeat center center;
     background-size: 100% 100%;
     border: none;
-    border-radius: 0; /* Let the image define the shape */
+    border-radius: 0;
     opacity: 0;
-    transition: opacity 0.4s ease; /* Only opacity for no-movement feel */
+    transition: opacity 0.4s ease;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Fixed start position so it doesn't move/jump */
     align-items: center;
+    gap: 1.2rem;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.8);
     backface-visibility: hidden;
     pointer-events: none;
+    overflow: hidden; /* Disable scrolling to ensure static feel */
+}
+
+/* Ensure centering even when content is tiny or large */
+.message-page > div, .message-page > img {
+    flex-shrink: 0;
 }
 
 .message-page.active {
@@ -562,27 +555,31 @@ textarea:focus, input:focus {
 }
 
 .page-content {
-    font-size: 1.3rem;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    line-height: 1.6;
     font-style: italic;
     color: #000;
     font-weight: 700;
-    margin: 0 1.5rem;
-    padding: 1rem;
-    text-shadow: 0.5px 0.5px 0px rgba(255,255,255,0.8); /* Slight lift */
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-shadow: 0.5px 0.5px 0px rgba(255,255,255,0.8);
+    letter-spacing: 0.1px;
 }
 
 .page-image {
-    max-width: 90%;
+    max-width: 95%;
     height: auto;
-    max-height: 50%;
+    max-height: 55%;
     object-fit: contain;
     border-radius: 12px;
-    margin-top: 1rem;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.5); /* Subtle backing for PNGs */
+    margin-top: 0; /* Handled by gap now */
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.4);
     border: 2px solid #fff;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .carousel-controls {
