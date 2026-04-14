@@ -186,6 +186,34 @@ header {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding-bottom: 2rem;
+}
+
+.search-container {
+    margin-bottom: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-black);
+    padding: 1rem 0;
+}
+
+#student-search {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--pink-dark);
+    padding: 1.2rem;
+    border-radius: 12px;
+    color: white;
+    font-size: 1.1rem;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+#student-search:focus {
+    outline: none;
+    border-color: var(--pink);
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
 }
 
 .student-btn {
@@ -209,15 +237,11 @@ header {
 .student-btn:hover, .student-btn:active {
     background: linear-gradient(45deg, var(--pink-dark), var(--pink));
     color: white;
-    transform: translateX(10px);
+    transform: translateY(-5px);
     border-color: transparent;
 }
 
-.student-btn::after {
-    content: '→';
-    font-size: 1.2rem;
-    opacity: 0.5;
-}
+/* No icon after button as requested — name only */
 
 /* Book Container */
 .book-wrapper {
@@ -347,6 +371,23 @@ header {
     width: 100%;
 }
 
+.pink-btn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.spinner-inline {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+}
+
 /* Forms */
 .card {
     padding: 2rem;
@@ -440,6 +481,32 @@ textarea:focus, input:focus {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--pink-bright));
+    transition: width 0.3s ease;
+}
+
+.progress-status {
+    font-size: 0.8rem;
+    color: var(--pink-bright);
+    margin-top: 0.5rem;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .carousel-container {

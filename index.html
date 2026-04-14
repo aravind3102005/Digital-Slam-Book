@@ -34,6 +34,9 @@
                 <h2 class="pink-text">Select a Name</h2>
                 <p>Choose a friend to write a note or view your book</p>
             </header>
+            <div class="search-container">
+                <input type="text" id="student-search" placeholder="🔍 Search for a name...">
+            </div>
             <div id="student-list" class="grid-list">
                 <!-- Names will be injected here -->
             </div>
@@ -79,6 +82,12 @@
                             <input type="file" id="image-upload" accept="image/*">
                         </label>
                         <div id="image-preview" class="hidden"></div>
+                    </div>
+                    <div id="upload-progress" class="hidden">
+                        <div class="progress-container">
+                            <div id="progress-bar" class="progress-fill"></div>
+                        </div>
+                        <p id="progress-text" class="progress-status">Optimizing...</p>
                     </div>
                     <button type="submit" class="pink-btn full">Save Memory ✨</button>
                 </form>
