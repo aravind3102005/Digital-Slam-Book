@@ -98,7 +98,22 @@ function renderSlamBookPages() {
         const page = document.createElement('div');
         page.className = `message-page ${index === 0 ? 'active' : ''}`;
 
-        let content = `<div class="page-content">${msg.text}</div>`;
+        let textClass = 'page-content';
+        let textLen = msg.text ? msg.text.length : 0;
+        
+        if (msg.image) {
+            // Less room because image takes up half the page
+            if (textLen > 500) textClass += ' ultra-long-text';
+            else if (textLen > 250) textClass += ' extra-long-text';
+            else if (textLen > 100) textClass += ' long-text';
+        } else {
+            // Full page for text
+            if (textLen > 800) textClass += ' ultra-long-text';
+            else if (textLen > 500) textClass += ' extra-long-text';
+            else if (textLen > 250) textClass += ' long-text';
+        }
+
+        let content = `<div class="${textClass}">${msg.text}</div>`;
         if (msg.image) {
             content += `<img src="${msg.image}" class="page-image" alt="Memory">`;
         }
